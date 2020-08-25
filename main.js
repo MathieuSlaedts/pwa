@@ -1,3 +1,13 @@
+axios.get("https://api.punkapi.com/v2/beers").then((res) => {
+    let beersUl = document.querySelector(".beers");
+    let beers = "";
+    res.data.forEach((el) => {
+        beers += `<li>${el.name}</li>`;
+    });
+    console.log(beers);
+    beersUl.innerHTML = beers;
+});
+
 if ("serviceWorker" in navigator) {
     window.addEventListener("load", () => {
         navigator.serviceWorker

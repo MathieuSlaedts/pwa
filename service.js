@@ -18,22 +18,41 @@ importScripts(
 );
 if (workbox) {
     console.log("workbox ok");
-    workbox.precaching.precacheAndRoute([{
-            url: "index.html",
-        },
-        {
-            url: "styles.css",
-        },
-        {
-            url: "main.js",
-        },
-        {
-            url: "https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.0/css/bulma.min.css",
-        },
-        {
-            url: "images/android/android-launchericon-192-192.png",
-        },
-    ]);
+    /* workbox.precaching.precacheAndRoute([{
+                      url: "index.html",
+                  },
+                  {
+                      url: "styles.css",
+                  },
+                  {
+                      url: "main.js",
+                  },
+                  {
+                      url: "https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.0/css/bulma.min.css",
+                  },
+                  {
+                      url: "images/android/android-launchericon-192-192.png",
+                  },
+              ]); */
+    workbox.routing.registerRoute(
+        /(.*)\.(?:png|gif|jpg|jpeg|css)$/,
+        new workbox.strategies.CacheFirst({
+            cacheName: "design-cache",
+            /* plugins: [
+                                        new workbox.cacheableResponse.CacheableResponsePlugin({
+                                            maxEntries: 50,
+                                            maxAgeSeconds: 30 * 24 * 60 * 60, //30 days
+                                        }),
+                                    ], */
+        })
+    );
+
+    workbox.routing.registerRoute(
+        "https://api.punkapi.com/v2/beers",
+        new workbox.strategies.NetworkFirst({
+            cacheName: "api-cache",
+        })
+    );
 } else {
     console.log("workbox not ok");
 }
