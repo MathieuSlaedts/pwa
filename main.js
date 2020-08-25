@@ -1,8 +1,3 @@
-/* document.querySelector(".delete-cache").addEventListener("click", (el) => {
-    caches.delete("design-cache");
-    caches.delete("api-cache");
-}); */
-
 axios.get("https://api.punkapi.com/v2/beers").then((res) => {
     let beersUl = document.querySelector(".beers");
     let beers = "";
