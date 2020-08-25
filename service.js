@@ -1,4 +1,5 @@
-const version = "0.0.2";
+const version = 3;
+const oldVersion = version - 1;
 
 // Enregistrement du serviceWorker
 self.addEventListener("install", (event) => {
@@ -9,6 +10,10 @@ self.addEventListener("install", (event) => {
 // Activation du serviceWorker
 self.addEventListener("activate", (event) => {
     // console.log("Activate");
+    event.waitUntil(
+        caches.delete("design-cache-" + oldVersion),
+        caches.delete("api-cache-" + oldVersion)
+    );
     return self.clients.claim();
 });
 
@@ -19,32 +24,32 @@ importScripts(
 if (workbox) {
     console.log("workbox ok");
     /* workbox.precaching.precacheAndRoute([{
-                        url: "index.html",
-                    },
-                    {
-                        url: "styles.css",
-                    },
-                    {
-                        url: "main.js",
-                    },
-                    {
-                        url: "https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.0/css/bulma.min.css",
-                    },
-                    {
-                        url: "images/android/android-launchericon-192-192.png",
-                    },
-                ]); */
+                                url: "index.html",
+                            },
+                            {
+                                url: "styles.css",
+                            },
+                            {
+                                url: "main.js",
+                            },
+                            {
+                                url: "https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.0/css/bulma.min.css",
+                            },
+                            {
+                                url: "images/android/android-launchericon-192-192.png",
+                            },
+                        ]); */
     workbox.routing.registerRoute(
         /(.*)\.(?:png|gif|jpg|jpeg|css)$/,
         new workbox.strategies.CacheFirst({
-            cacheName: "design-cache",
+            cacheName: "design-cache" + oldVersion,
         })
     );
 
     workbox.routing.registerRoute(
         "https://api.punkapi.com/v2/beers",
         new workbox.strategies.NetworkFirst({
-            cacheName: "api-cache",
+            cacheName: "api-cache" + oldVersion,
         })
     );
 } else {
