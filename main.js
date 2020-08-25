@@ -15,3 +15,26 @@ if ("serviceWorker" in navigator) {
         "Votre navigateur n'est pas compatible avec nos services"
     );
 }
+
+const installBtn = document.querySelector(".installer");
+let defferedPrompt;
+
+window.addEventListener("beforeinstallprompt", (e) => {
+    e.preventDefault();
+    defferedPrompt = e;
+    installBtn.style.display = "block";
+});
+
+installBtn.addEventListener("click", (e) => {
+    installBtn.style.display = "none";
+    defferedPrompt.prompt();
+
+    defferedPrompt.userChoice.then((choiceResult) => {
+        if (choiceResult.outcome === "accepted") {
+            console.log("installation réussie");
+        } else {
+            console.log("installation refusée");
+        }
+        defferedPrompt = null;
+    });
+});
