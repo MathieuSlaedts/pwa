@@ -1,0 +1,26 @@
+{
+    "short_name": "WAM",
+    "name": "Web App Manifest",
+    "theme_color": "#eb5252",
+    "background_color": "#000000",
+    "display": "fullscreen",
+    "Scope": "/",
+    "orientation": "portrait",
+    "icons": [{
+            "src": "images/android/android-launchericon-48-48.png",
+            "type": "image/png",
+            "sizes": "48x48"
+        },
+        {
+            "src": "images/android/android-launchericon-96-96.png",
+            "type": "image/png",
+            "sizes": "96x96"
+        },
+        {
+            "src": "images/android/android-launchericon-192-192.png",
+            "type": "image/png",
+            "sizes": "192x192"
+        }
+    ],
+    "start_url": "index.html?utm_source=homescreen"
+}
