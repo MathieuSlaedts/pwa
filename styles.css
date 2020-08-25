@@ -5,7 +5,7 @@ body {
 .installer {
     position: absolute;
     bottom: 0;
-    background: red;
+    background: green;
     padding: 0.7rem 1rem;
     display: none;
 }
